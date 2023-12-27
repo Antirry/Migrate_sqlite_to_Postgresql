@@ -6,10 +6,12 @@ from _1_load_tables import load_tables, sqlite_connect
 config = ConfigParser()
 
 my_path = abspath(dirname(__file__))
-path = join(my_path, "../project/Config/config_database.ini")
+path = join(my_path, "../project_Works_withOUT_KEYS_(Faster)/Config/config_database.ini")
 
 config.read(path)
 config = {i[0]:i[1] for i in config.items('DEFAULT')}
+
+print(config)
 
 # Connect to the SQLite database
 

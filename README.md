@@ -91,7 +91,7 @@ Loading data via psycopg2 cursor through executemany
 
 ## File: '_2_migrate_use_sqlalchemy.py'
 
-Забирает данные с config_database и запускает дополненный конфиг названиями таблиц с использованием подключения sqlite3
+Забирает данные с config_database и запускает дополненный конфиг с названиями таблиц с использованием подключения sqlite3
 
 Takes data from config_database and runs extended config with table names using sqlite3 connection
 

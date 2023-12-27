@@ -24,4 +24,5 @@ $$ LANGUAGE plpgsql;
 
 SELECT * FROM remove_duplicates('ratings');
 -- SQLBook: Code
+-- DELETE FUNCTION
 DROP FUNCTION remove_duplicates(table_name text)

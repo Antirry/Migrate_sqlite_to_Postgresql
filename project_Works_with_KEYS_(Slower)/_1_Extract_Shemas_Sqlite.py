@@ -27,9 +27,9 @@ def extract_scheme_sqlite(sqlite_db_path=None) -> list[tuple]:
     table_names = topological_sort(ref_table)
     table_names = list(dict.fromkeys(table_names))
 
-    print("Таблицы в базе данных SQLite, (В порядке их создания) -> \n", table_names)
-    print('Tables in a SQLite database, (In order of their creation) -> \n',
+    print("\n\nТаблицы в базе данных SQLite, (В порядке их создания) -> \n",
         table_names)
+    print('Tables in a SQLite database, (In order of their creation) ->\n\n')
 
     NamesQueries = sorted(schema_results, key=lambda x: table_names.index(x[0]))
 
@@ -69,5 +69,5 @@ def transfer_schemes(NamesQueries: list[str],
                         port=pg_port) as pg_conn:
         with pg_conn.cursor() as pg_cursor:
             [pg_cursor.execute(result[1]) for result in NamesQueries]
-            print("Схема перенесена, поздравляю!")
-            print('The scheme has been moved in PostgreSQL, congratulations!')
+            print("\n\nСхема перенесена, поздравляю!")
+            print('The scheme has been moved in PostgreSQL, congratulations!\n\n')

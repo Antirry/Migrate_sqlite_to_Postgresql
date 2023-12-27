@@ -15,7 +15,7 @@ def config_extract() -> dict:
     config = ConfigParser()
 
     my_path = abspath(dirname(__file__))
-    path = join(my_path, "../project/Config")
+    path = join(my_path, "../project_Works_with_KEYS_(Slower)/Config")
 
     config.read(path + '/config_database.ini')
     config = {i[0]:i[1] for i in config.items('DEFAULT')}
@@ -62,15 +62,14 @@ for table_name in tables_names:
     # Insert data into PostgreSQL
 
     sqlite_cursor.execute(f"PRAGMA table_info('{table_name}');")
-    columns = (x[1] for x in sqlite_cursor.fetchall())
+    columns = [x[1] for x in sqlite_cursor.fetchall()]
 
     pg_cursor.executemany(f"""
         INSERT INTO {table_name} ({', '.join(columns)})
-        VALUES ({('%s, ' * len(list(columns)))[:-2]})
+        VALUES ({("%s, " * len(columns))[:-2]})
         """, data)
 
     pg_conn.commit()
-    print(f'Таблица -> {table_name} готова!')
     print(f'Table -> {table_name} ready!')
 
 # Commit the changes and close the connections
