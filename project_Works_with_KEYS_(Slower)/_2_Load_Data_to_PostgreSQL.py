@@ -2,7 +2,7 @@ from configparser import ConfigParser
 from os.path import abspath, dirname, join
 from sqlite3 import connect as conn_sqlite
 
-from _1_Extract_Shemas_Sqlite import extract_scheme_sqlite
+from _1_Extract_Shemas_Sqlite import extract_scheme_sqlite, transfer_schemes
 from psycopg2 import connect as conn_pg
 
 
@@ -27,10 +27,15 @@ path_sqlite = config['sqlite_db_path']
 try:
     Schema_sqlite = extract_scheme_sqlite(path_sqlite)
     config.__delitem__('sqlite_db_path')
-    # try:
-    #     transfer_schemes(Schema_sqlite, **config)
-    # except ValueError:
-    #     print('\n\n Имеются уже такие схемы \n\n')
+
+    # Please comment below code, for retry scripts
+
+    try:
+        transfer_schemes(Schema_sqlite, **config)
+    except ValueError:
+        print('\n\n Имеются уже такие схемы \n\n')
+
+    # Please comment below code, for retry scripts
 
 except ValueError as v:
     print('\n\nProblem config file\n\n')

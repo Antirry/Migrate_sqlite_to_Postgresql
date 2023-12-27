@@ -29,7 +29,7 @@ def extract_scheme_sqlite(sqlite_db_path=None) -> list[tuple]:
 
     print("\n\nТаблицы в базе данных SQLite, (В порядке их создания) -> \n",
         table_names)
-    print('Tables in a SQLite database, (In order of their creation) ->\n\n')
+    print('Tables in a SQLite database, (In order of their creation) ->\n')
 
     NamesQueries = sorted(schema_results, key=lambda x: table_names.index(x[0]))
 
