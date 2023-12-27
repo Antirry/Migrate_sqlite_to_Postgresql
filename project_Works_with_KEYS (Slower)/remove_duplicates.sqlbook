@@ -1,0 +1,27 @@
+-- SQLBook: Code
+SELECT DISTINCT * FROM ratings;
+-- SQLBook: Code
+CREATE TABLE temporary_ratings AS
+  SELECT DISTINCT ON (book_id, rating) * FROM ratings;
+DROP TABLE ratings;
+ALTER TABLE temporary_ratings RENAME TO ratings;
+-- SQLBook: Code
+-- Function for remove duplicates in imported table
+
+CREATE OR REPLACE FUNCTION remove_duplicates(table_name text)
+RETURNS void AS $$
+BEGIN
+    EXECUTE 'CREATE TABLE temporary_' || table_name || ' AS
+        SELECT DISTINCT * FROM ' || table_name || ';
+        
+        DROP TABLE ' || table_name || ';
+        
+        ALTER TABLE temporary_' || table_name || ' RENAME TO ' || table_name || ';';
+END;
+$$ LANGUAGE plpgsql;
+-- SQLBook: Code
+-- Activate FUNCTION
+
+SELECT * FROM remove_duplicates('ratings');
+-- SQLBook: Code
+DROP FUNCTION remove_duplicates(table_name text)
